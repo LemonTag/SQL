@@ -63,16 +63,16 @@ function loadMainPrompts() {
 
 // TODO- Create a function to View all employees
 async function viewAllEmployees() {
-  // try {
-  //   const employees = await db.getAllEmployees(); // Add await
-  //   if (employees.length === 0) {
-  //     console.log('There are no employees in the database.');
-  //   } else {
-  //     console.table(employees);
-  //   }
-  // } catch (error) {
-  //   console.error('Error fetching employees:', error);
-  // }
+  try {
+    const employees = await db.getAllEmployees(); // Add await
+    if (employees.length === 0) {
+      console.log('There are no employees in the database.');
+    } else {
+      console.table(employees.rows);
+    }
+  } catch (error) {
+    console.error('Error fetching employees:', error);
+  }
   console.log("viewEmployess")
   loadMainPrompts()
 }
