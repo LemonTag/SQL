@@ -79,100 +79,96 @@ async function viewAllEmployees() {
 
 // TODO- Create a function to Update an employee's role
 async function updateEmployeeRole() {
-  // try {
-  //   // 1. Get all employees (for selection)
-  //   const employee = await db.getAllEmployees();
-  //   const empoloyeeList = employee.map(({ first_name, last_name, id }) => ({
-  //     name: `${first_name} ${last_name}`,
-  //     value: id
-  //   }))
+  try {
+    // 1. Get all employees (for selection)
+    const employee = await db.getAllEmployees();
+    const employeeList = employee.map(({ first_name, last_name, id }) => ({
+      name: `${first_name} ${last_name}`,
+      value: id
+    }))
 
-  //   console.log(empoloyeeList);
-  //   // 2. Prompt user to choose an employee
-  //   const { chosenEmployee } = await prompt([
-  //     {
-  //       type: 'list',
-  //       name: 'chosenEmployee',
-  //       message: 'Select the employee to update role',
+    console.log(employeeList);
+    // 2. Prompt user to choose an employee
+    const { chosenEmployee } = await prompt([
+      {
+        type: 'list',
+        name: 'chosenEmployee',
+        message: 'Select the employee to update role',
 
-  //     }
-  //   ]);
+      }
+    ]);
 
-  //   // 3. Get all available roles (for selection)
-  //   const roles = await db.getAllRoles();
-  //   choices: roles.map(role => role.title)
+    // 3. Get all available roles (for selection)
+    const roles = await db.getAllRoles();
+    choices: roles.map(role => role.title)
 
-  //   const { chosenRole } = await prompt([{
-  //     type: 'list',
-  //     name: 'chosenRole',
-  //     message: 'Select the new role for the employee:',
+    const { chosenRole } = await prompt([{
+      type: 'list',
+      name: 'chosenRole',
+      message: 'Select the new role for the employee:',
 
-  //   }
-  //   ])
+    }
+    ])
 
-  //   // 5. Update employee role in the database using db.updateEmployeeRole(employeeId, roleId)
-  //   await db.updateEmployeeRole(chosenEmployee.id, chosenRole.id);
+    
+    // 5. Update employee role in the database using db.updateEmployeeRole(employeeId, roleId)
+    await db.updateEmployeeRole(chosenEmployee.id, chosenRole.id);
 
-  //   console.log('Employee role updated successfully!');
-  // } catch (error) {
-  //   console.error('Error updating employee role:', error);
-  // }
+    console.log('Employee role updated successfully!');
+  } catch (error) {
+    console.error('Error updating employee role:', error);
+  }
   console.log("updateEmployeeRole")
-  loadMainPrompts()
+  loadMainPrompts() 
 }
 
 // TODO- Create a function to View all roles
 // to make a function to view a function in the termial 
 async function viewAllDepartments() {
   //try this code if this code is out error out for any reason runs the catch
-  // try {
-  //   const departments = await db.getAllDepartments();
-  //   if (departments.length === 0) {
-  //     console.log('there are no roles defined in the database.');
-  //   } else {
-  //     console.table(departments);
-  //   }
-  // } catch (error) {
-  //   console.error('Error fetching departments:', error)
-  // }
+  try {
+    const departments = await db.getAllDepartments();
+    if (departments.length === 0) {
+      console.log('there are no roles defined in the database.');
+    } else {
+      console.table(departments);
+    }
+  } catch (error) {
+    console.error('Error fetching departments:', error)
+  }
   console.log("viewAllDepartments")
   loadMainPrompts()
 }
 // TODO- Create a function to Add a role
 async function addDepartment() {
-  // try {
-  //   const { title } = await prompt([
-  //     {
-  //       type: 'input',
-  //       name: 'title',
-  //       message: 'Enter the title of the new department',
-  //     }
-  //   ]);
+  try {
+    // 1. Get all employees (for selection)
+    const department = await db.getAllDepartments();
+    const departmentList = department.map(({ name }) => ({
+      name: `${title} ${salary}`,
+      value: id
+    }))
 
-  //   await db.getdepartment(name);
-  //   console.log("New department added successfully!");
-  // } catch (error) {
-  //   console.error("Erro adding department:", error)
-  // }
+    console.log(departmentList);
+    // 2. Prompt user to choose an employee
+    const { chosenDepartment } = await prompt([
+      {
+        type: 'list',
+        name: 'chosenEmployee',
+        message: 'Select the employee to update role',
 
-  // try {
-  //   const { department } = await prompt([
-  //     {
-  //       type: 'list',
-  //       name: 'department',
-  //       message: 'Select the department for the new role:',
-  //       choices: departmentChoices.concat('None'),
-  //     }
-  //   ])
-  //   let departmentId = null;
-  //   if (department !== 'None') {
-  //     departmentId = department.find(dept => dept.name === department).id;
-  //   }
-  //   await db.addRole(title, salary, departmentId);
-  //   console.log('New role added successfully!');
-  // } catch (error) {
-  //   console.error('Error adding role:', error);
-  // }
+      }
+    ]);
+
+    let departmentId = null;
+    if (department !== 'None') {
+      departmentId = department.find(dept => dept.name === department).id;
+    }
+    await db.addRole(title, salary, departmentId);
+    console.log('New role added successfully!');
+  } catch (error) {
+    console.error('Error adding role:', error);
+  }
   console.log("addDepartments")
   loadMainPrompts()
 }
@@ -183,43 +179,34 @@ async function addDepartment() {
 // TODO- Create a function to Add a department
 async function viewAllRoles() {
   // try {
-  //   const departments = await db.getAlldepartments();
-  //   const departmentChoices = departments.map(department => department.name);
+  //   // 1. Get all employees (for selection)
+  //   const role = await db.getAllRoles();
+  //   const roleList = role.map(({ title, salary, id }) => ({
+  //     name: `${title} ${salary}`,
+  //     value: id
+  //   }))
 
-  //   const { title, salary } = await prompt([
+  //   console.log(roleList);
+  //   // 2. Prompt user to choose an employee
+  //   const { chosenRole } = await prompt([
   //     {
-  //       type: 'input',
-  //       name: 'title',
-  //       message: 'Enter the salary for the new role:',
-  //     },
-  //     {
-  //       type: 'number',
-  //       name: 'salary',
-  //       message: 'Enter the salary for the new role:',
+  //       type: 'list',
+  //       name: 'chosenEmployee',
+  //       message: 'Select the employee to update role',
   //     }
-  //   ])
+  //   ]);
 
-  //   const { department } = await prompt([
-  //     {
-  //       type: 'input',
-  //       name: 'department',
-  //       message: 'Select the department for the new role',
-  //       choices: departmentChoices.concat("None")
-  //     },
-
-  //   ])
-
-  //   let departmentId = null;
-  //   if (department !== 'None') {
-  //     departmentId = department.find(dept => dept.name === department).id;
+  //   let roleId = null;
+  //   if (role !== 'None') {
+  //     roleId = role.find(dept => dept.name === role).id;
   //   }
   //   await db.addRole(title, salary, departmentId);
   //   console.log('New role added successfully!');
   // } catch (error) {
   //   console.error('Error adding role:', error);
   // }
-  console.log("viewAllRolls")
-  loadMainPrompts()
+  // console.log("viewAllRolls")
+  // loadMainPrompts()
 }
 
 // TODO- Create a function to Add an employee
