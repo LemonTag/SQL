@@ -94,25 +94,26 @@ async function updateEmployeeRole() {
         type: 'list',
         name: 'chosenEmployee',
         message: 'Select the employee to update role',
-
+        choices: employeeList
       }
     ]);
 
     // 3. Get all available roles (for selection)
     const roles = await db.getAllRoles();
-    choices: roles.map(role => role.title)
+    const roleList = roles.map(role => role.title)
 
     const { chosenRole } = await prompt([{
       type: 'list',
       name: 'chosenRole',
       message: 'Select the new role for the employee:',
+      choices: roleList
 
     }
     ])
 
     
     // 5. Update employee role in the database using db.updateEmployeeRole(employeeId, roleId)
-    await db.updateEmployeeRole(chosenEmployee.id, chosenRole.id);
+    await db.updateEmployeeRole(chosenEmployee, chosenRole);
 
     console.log('Employee role updated successfully!');
   } catch (error) {
@@ -140,76 +141,51 @@ async function viewAllDepartments() {
   loadMainPrompts()
 }
 // TODO- Create a function to Add a role
+// this functions is adding a department if you don't pick a department then an error will show up.
 async function addDepartment() {
   try {
     // 1. Get all employees (for selection)
-    const department = await db.getAllDepartments();
-    const departmentList = department.map(({ name }) => ({
-      name: `${title} ${salary}`,
-      value: id
-    }))
-
-    console.log(departmentList);
-    // 2. Prompt user to choose an employee
-    const { chosenDepartment } = await prompt([
+    const {departmentName} = await prompt([
       {
-        type: 'list',
-        name: 'chosenEmployee',
-        message: 'Select the employee to update role',
-
+        type: 'input',
+        name: 'departmentName',
+        message: 'Enter the name of the department'
       }
     ]);
-
-    let departmentId = null;
-    if (department !== 'None') {
-      departmentId = department.find(dept => dept.name === department).id;
-    }
-    await db.addRole(title, salary, departmentId);
-    console.log('New role added successfully!');
-  } catch (error) {
-    console.error('Error adding role:', error);
+  
+    
+    await db.addDepartment(departmentName);
+    console.log('New department added successfully!');
+  }catch (error) {
+    console.error('Error adding department:', error);
   }
-  console.log("addDepartments")
-  loadMainPrompts()
+  console.log("addDepartments");
+  loadMainPrompts();
 }
 
 // TODO- Create a function to View all departments
 //try this code if this code is out error out for any reason runs the catch
 
-// TODO- Create a function to Add a department
+// TODO- Create a function to Add a  role
+// this functions is adding a role if you don't pick a role then an error will show up.
 async function viewAllRoles() {
-  // try {
-  //   // 1. Get all employees (for selection)
-  //   const role = await db.getAllRoles();
-  //   const roleList = role.map(({ title, salary, id }) => ({
-  //     name: `${title} ${salary}`,
-  //     value: id
-  //   }))
-
-  //   console.log(roleList);
-  //   // 2. Prompt user to choose an employee
-  //   const { chosenRole } = await prompt([
-  //     {
-  //       type: 'list',
-  //       name: 'chosenEmployee',
-  //       message: 'Select the employee to update role',
-  //     }
-  //   ]);
-
-  //   let roleId = null;
-  //   if (role !== 'None') {
-  //     roleId = role.find(dept => dept.name === role).id;
-  //   }
-  //   await db.addRole(title, salary, departmentId);
-  //   console.log('New role added successfully!');
-  // } catch (error) {
-  //   console.error('Error adding role:', error);
-  // }
-  // console.log("viewAllRolls")
-  // loadMainPrompts()
+  try {
+    // 1. Get all employees (for selection)
+    const role = await db.getAllRoles();
+     if (roles.legth === 0){
+      console.log('There are no roles defind in the database.');
+     }else {
+      console.table(roles);
+     }
+    } catch (error){
+      console.error('Error fetching roles:', error);
+    }
+    console.log("viewAllRoles");
+    loadMainPrompts();
 }
 
 // TODO- Create a function to Add an employee
+// this is adding an employee
 function addingEmployee() {
   console.log('add employee');
   loadMainPrompts()
