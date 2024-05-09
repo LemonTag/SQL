@@ -1,185 +1,58 @@
 # 12 SQL: Employee Tracker
 
-## Your Task
-
-Developers frequently have to create interfaces that allow non-developers to easily view and interact with information stored in databases. These interfaces are called **content management systems (CMS)**. Your assignment this week is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and PostgreSQL.
-
-Because this Challenge will require the use of the `Inquirer` package, ensure that you install and use Inquirer version 8.2.4. To do so, use the following command in your project folder: `npm i inquirer@8.2.4`.
-
-Because this application won’t be deployed, you’ll also need to create a walkthrough video that demonstrates its functionality and all of the following acceptance criteria being met. You’ll need to submit a link to the video and add it to the README of your project.
-
-## User Story
-
-```md
-AS A business owner
-I WANT to be able to view and manage the departments, roles, and employees in my company
-SO THAT I can organize and plan my business
-```
-
-## Acceptance Criteria
-
-```md
-GIVEN a command-line application that accepts user input
-WHEN I start the application
-THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-WHEN I choose to view all departments
-THEN I am presented with a formatted table showing department names and department ids
-WHEN I choose to view all roles
-THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-WHEN I choose to view all employees
-THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-WHEN I choose to add a department
-THEN I am prompted to enter the name of the department and that department is added to the database
-WHEN I choose to add a role
-THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-WHEN I choose to add an employee
-THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-WHEN I choose to update an employee role
-THEN I am prompted to select an employee to update and their new role and this information is updated in the database
-```
-
-## Mock-Up
-
-The following video shows an example of the application being used from the command line:
-
-[![A video thumbnail shows the command-line employee management application with a play button overlaying the view.](./Assets/12-sql-homework-video-thumbnail.png)](https://2u-20.wistia.com/medias/2lnle7xnpk)
-
-## Getting Started
-
-This Challenge will require a video submission. Refer to the [Fullstack Blog Video Submission Guide](https://coding-boot-camp.github.io/full-stack/computer-literacy/video-submission-guide) for additional guidance on creating a video.
-
-You’ll need to use the [pg package](https://www.npmjs.com/package/pg) to connect to your PostgreSQL database and perform queries, and the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4) to interact with the user via the command line.
-
-**Important**: You will be committing a file that contains your database credentials. Make sure that your PostgreSQL password is not used for any other personal accounts, because it will be visible on GitHub. In upcoming lessons, you will learn how to better secure this password, or you can start researching npm packages now that could help you.
-
-You might also want to make your queries asynchronous. You can make your queries asynchronous by using the [native async/await keywords](https://node-postgres.com/guides/async-express).
-
-Design the database schema as shown in the following image:
-
-![Database schema includes tables labeled “employee,” role,” and “department.”](./Assets/100-sql-challenge-ERD.png)
-
-As the image illustrates, your schema should contain the following three tables:
-
-- `department`
-
-  - `id`: `SERIAL PRIMARY KEY`
-
-  - `name`: `VARCHAR(30) UNIQUE NOT NULL` to hold department name
-
-- `role`
-
-  - `id`: `SERIAL PRIMARY KEY`
-
-  - `title`: `VARCHAR(30) UNIQUE NOT NULL` to hold role title
-
-  - `salary`: `DECIMAL NOT NULL` to hold role salary
-
-  - `department_id`: `INTEGER NOT NULL` to hold reference to department role belongs to
-
-- `employee`
-
-  - `id`: `SERIAL PRIMARY KEY`
-
-  - `first_name`: `VARCHAR(30) NOT NULL` to hold employee first name
-
-  - `last_name`: `VARCHAR(30) NOT NULL` to hold employee last name
-
-  - `role_id`: `INTEGER NOT NULL` to hold reference to employee role
-
-  - `manager_id`: `INTEGER` to hold reference to another employee that is the manager of the current employee (`null` if the employee has no manager)
-
-You might want to use a separate file that contains functions for performing specific SQL queries you'll need to use. A constructor function or class could be helpful for organizing these. You might also want to include a `seeds.sql` file to pre-populate your database, making the development of individual features much easier.
-
-## Bonus
-
-Try to add some additional functionality to your application, such as the ability to do the following:
-
-- Update employee managers.
-
-- View employees by manager.
-
-- View employees by department.
-
-- Delete departments, roles, and employees.
-
-- View the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department.
-
-## Grading Requirements
-
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> - A repository that has no code
->
-> - A repository that includes a unique name but nothing else
->
-> - A repository that includes only a README file but nothing else
->
-> - A repository that only includes starter code
-
-This Challenge is graded based on the following criteria:
-
-### Deliverables: 10%
-
-- Your GitHub repository containing your application code.
-
-### Walkthrough Video: 27%
-
-- A walkthrough video that demonstrates the functionality of the employee tracker must be submitted, and a link to the video should be included in your README file.
-
-- The walkthrough video must show all of the technical acceptance criteria being met.
-
-- The walkthrough video must demonstrate how a user would invoke the application from the command line.
-
-- The walkthrough video must demonstrate a functional menu with the options outlined in the acceptance criteria.
-
-### Technical Acceptance Criteria: 40%
-
-- Satisfies all of the preceding acceptance criteria plus the following:
-
-  - Uses the [Inquirer package](https://www.npmjs.com/package/inquirer/v/8.2.4).
-
-  - Uses the [pg package](https://www.npmjs.com/package/pg) to connect to a PostgreSQL database.
-
-- Follows the table schema outlined in the Challenge instructions.
-
-### Repository Quality: 13%
-
-- Repository has a unique name.
-
-- Repository follows best practices for file structure and naming conventions.
-
-- Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-- Repository contains multiple descriptive commit messages.
-
-- Repository contains a high-quality README with description and a link to a walkthrough video.
-
-### Application Quality 10%
-
-- The application user experience is intuitive and easy to navigate.
-
-### Bonus
-
-Fulfilling any of the following can add up to 20 points to your grade. Note that the highest grade you can achieve is still 100:
-
-- Application allows users to update employee managers (2 points).
-
-- Application allows users to view employees by manager (2 points).
-
-- Application allows users to view employees by department (2 points).
-
-- Application allows users to delete departments, roles, and employees (2 points for each).
-
-- Application allows users to view the total utilized budget of a department&mdash;in other words, the combined salaries of all employees in that department (8 points).
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-- A walkthrough video demonstrating the functionality of the application.
-
-- The URL of the GitHub repository, with a unique name and a README describing the project.
-
----
-
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+# Note-Taker
+This is Day Challenge 11
+# Description
+What was my motivation?
+My motivation was learning how to build a SQL using node. It helped me understand what API is and how to work on it. Javascript
+Why did you build this project?
+I built this project to understand how to use node.js.
+What problems does it solve?
+The problem it opens is that you have to use the right function and correct spelling because then the node won't know what you just wrote. It helped me solve my spelling mistakes and learn how to use functions.
+What did I learn?
+I learned about nodes and using the thermal as well.
+What makes your project stand out?
+My project stands out because it shows how users can pick the shape, color, and font they want. 
+
+# Installation
+What I did was open git labs, and I made a git clone of the challenges I had to do into a separate folder, which I then made into my Challenges folder. 
+After that, I went into my git hub, created repositories for my Web-API, and connected them with my challenges folder using git bash. I also created my assets folder there.
+Then, I open the folder using Visual Studio code to make my index.html and style.css, and Javascript to use my project.
+I used my git bash to commit my work and pushed each time I made something new in my Task-Board project. I also used weather API to get the key.
+https://github.com/LemonTag/Note-Taker
+
+![Screenshot (22)](https://github.com/LemonTag/SQL/assets/50891761/cff3b19d-02d5-4bd0-b693-01c76054efd9)
+
+
+# credits
+My group meet-ups with my classes have helped 
+Cody Chase, the greatest TA ever, helped me show how to use Javascript and Node.
+Mary the besest TA ever, helped me with Javascript and Node.
+
+
+
+
+# License 
+MIT License
+
+Copyright (c) [2024] [Keegan Micu]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software") to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+
+THE SOFTWARE IS PROVIDED "AS IS"WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+# Badges
+![Static Badge](https://img.shields.io/badge/vscoding-lightblue) ![brettops tool](https://img.shields.io/badge/brettops-tool-209cdf?labelColor=162d50) ![Static Badge](https://img.shields.io/badge/javascript-yellow) ![Static Badge](https://img.shields.io/badge/style.css-lightblue) ![Static Badge](https://img.shields.io/badge/index.html-orange)
