@@ -20,7 +20,8 @@ After that, I went into my git hub, created repositories for my Web-API, and con
 Then, I open the folder using Visual Studio code to make my index.html and style.css, and Javascript to use my project.
 I used my git bash to commit my work and pushed each time I made something new in my Task-Board project. I also used weather API to get the key.
 https://github.com/LemonTag/Note-Taker
-
+https://lemontag.github.io/SQL/
+https://github.com/LemonTag/SQL
 ![Screenshot (22)](https://github.com/LemonTag/SQL/assets/50891761/cff3b19d-02d5-4bd0-b693-01c76054efd9)
 
 
